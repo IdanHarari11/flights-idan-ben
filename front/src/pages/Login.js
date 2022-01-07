@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { setItemToLocalStorage } from '../helpers/localStorageFunc';
 import { doFetch } from "../helpers/useFetch";
@@ -22,7 +22,6 @@ const Login = () => {
     hasError: loginUsernameHasError,
     valueChangeHandler: loginUsernameChangeHandler,
     inputBlurHandler: loginUsernameBlurHandler,
-    reset: resetLoginUsername,
   } = useInput(isNotEmpty);
   const {
     value: loginPasswordValue,
@@ -30,7 +29,6 @@ const Login = () => {
     hasError: loginPasswordHasError,
     valueChangeHandler: loginPasswordChangeHandler,
     inputBlurHandler: loginPasswordBlurHandler,
-    reset: resetLoginPassword,
   } = useInput(isMoreThenSeven);
 
   //! Sign Up inputs
@@ -40,7 +38,6 @@ const Login = () => {
     hasError: signUpUsernameHasError,
     valueChangeHandler: signUpUsernameChangeHandler,
     inputBlurHandler: signUpUsernameBlurHandler,
-    reset: resetSignUpUsername,
   } = useInput(isNotEmpty);
   const {
     value: signUpEmailValue,
@@ -48,7 +45,6 @@ const Login = () => {
     hasError: signUpEmailHasError,
     valueChangeHandler: signUpEmailChangeHandler,
     inputBlurHandler: signUpEmailBlurHandler,
-    reset: resetSignUpEmail,
   } = useInput(isEmail);
   const {
     value: signUpPasswordValue,
@@ -56,7 +52,6 @@ const Login = () => {
     hasError: signUpPasswordHasError,
     valueChangeHandler: signUpPasswordChangeHandler,
     inputBlurHandler: signUpPasswordBlurHandler,
-    reset: resetSignUpPassword,
   } = useInput(isMoreThenSeven);
   const {
     value: signUpConfirmPasswordValue,
@@ -64,7 +59,6 @@ const Login = () => {
     hasError: signUpConfirmPasswordHasError,
     valueChangeHandler: signUpConfirmPasswordChangeHandler,
     inputBlurHandler: signUpConfirmPasswordBlurHandler,
-    reset: resetSignUpConfirmPassword,
   } = useInput(isEqualToPassword);
 
 
@@ -95,7 +89,7 @@ const Login = () => {
       return setLoginErrorMsg(await result.message);
     }
 
-    if (res.status == 200) {
+    if (res.status === 200) {
       history.replace("/home");
     }
   };
@@ -135,7 +129,7 @@ const Login = () => {
         return setLoginErrorMsg(await resultt.message);
       }
 
-      if (res.status == 201) {
+      if (res.status === 201) {
       history.replace("/home");
     }
   };

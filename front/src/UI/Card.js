@@ -79,7 +79,7 @@ const Card = ({ mainpicture, title, description, flight }) => {
           <BasicModal flight={flight} isAdmin={isAdmin} isEditing={isEditing} setIsEditing={setIsEditing} />
         </div>
         <div className={classes.image}>
-          <img src={mainpicture} />
+          <img alt="Hotel" src={mainpicture} />
         </div>
         <b className={classes.title}>{title}</b>
         <div className={classes.content}>

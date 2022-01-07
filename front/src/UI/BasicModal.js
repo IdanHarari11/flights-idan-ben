@@ -77,6 +77,7 @@ const BasicModal = ({ flight, isAdmin, isEditing, setIsEditing }) => {
 
           <img
             src={flight.pictures.main}
+            alt="Hotel"
             style={{ width: "100%", paddingBottom: "2rem" }}
           />
 
