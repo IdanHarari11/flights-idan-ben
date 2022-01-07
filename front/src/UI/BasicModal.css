@@ -1,0 +1,20 @@
+.Icon{
+  cursor: pointer;
+}
+
+.editInput{
+  width: 100%;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.myButton{
+  text-align: center;
+  margin-top: 0.8rem;
+  cursor: pointer;
+}

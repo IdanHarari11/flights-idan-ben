@@ -1,0 +1,16 @@
+.cards{ 
+    justify-content: center !important;
+    margin-top: 37rem;
+}
+
+@media screen and (max-width: 1150px) {
+    .cards{
+        margin-top: 50rem;
+    }
+}    
+@media screen and (max-width: 360px) {
+    .cards{
+        margin-top: 60rem;
+    }
+    
+}
