@@ -6,4 +6,4 @@
 5. open another cli
 6. run- cd back
 7. run- npm i
-8. run- node server.js
+8. run- node server.js (-> Shuold return -"app listening on port 5000!")
