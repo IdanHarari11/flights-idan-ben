@@ -1,12 +1,12 @@
 # CLI commands:
 1. open cli 
-2. run- cd front
-3. run- npm i
-4. run- npm start
+2. cd back
+3. npm i
+4. run- node server.js (-> Shuold return -"app listening on port 5000!")
 5. open another cli
-6. run- cd back
+6. run- cd front
 7. run- npm i
-8. run- node server.js (-> Shuold return -"app listening on port 5000!")
+8. run- npm start
 
 # Login
 user: 
