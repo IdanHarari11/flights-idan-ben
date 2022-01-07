@@ -42,6 +42,12 @@ const Card = ({ mainpicture, title, description, flight }) => {
     setIsFavorite((prevState) => !prevState);
   };
 
+  const onOpenModal = () => {
+    if (!user.token) {
+      history.replace("/login");
+      return alert("Please login first!");
+    }
+  }
   const onChangeTitle = (e) => {
     setIsChange(true);
     setEditTitle(e.target.value);
@@ -75,9 +81,9 @@ const Card = ({ mainpicture, title, description, flight }) => {
           {isAdmin && !isEditing && <EditIcon className={classes.Icon} onClick={() => setIsEditing(true)}/>}
           {isAdmin && isEditing && <CheckIcon className={classes.Icon} onClick={saveInputsChanges}/>}
         </div>
-        <div className={classes.icon2}>
+        {<div className={classes.icon2} onClick={onOpenModal}>
           <BasicModal flight={flight} isAdmin={isAdmin} isEditing={isEditing} setIsEditing={setIsEditing} />
-        </div>
+        </div>}
         <div className={classes.image}>
           <img alt="Hotel" src={mainpicture} />
         </div>

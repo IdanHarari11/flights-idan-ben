@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setItemToLocalStorage } from '../helpers/localStorageFunc';
+import { setItemToLocalStorage } from "../helpers/localStorageFunc";
 import { doFetch } from "../helpers/useFetch";
-import useInput from '../hooks/use-input';
-import { favoriteActions } from '../store/favoriteSlice';
-import { userActions } from '../store/userSlice';
-import classes from "./Login.module.css";
+import useInput from "../hooks/use-input";
+import { favoriteActions } from "../store/favoriteSlice";
+import { userActions } from "../store/userSlice";
+import "./Login.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isMoreThenSeven = (value) => value.length > 6;
 const isEmail = (value) => value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
 
 const Login = () => {
-  const isEqualToPassword = (value) => value === signUpPasswordValue && value.length > 6;
+  const isEqualToPassword = (value) =>
+    value === signUpPasswordValue && value.length > 6;
 
   //! Login inputs
   const {
@@ -22,6 +23,7 @@ const Login = () => {
     hasError: loginUsernameHasError,
     valueChangeHandler: loginUsernameChangeHandler,
     inputBlurHandler: loginUsernameBlurHandler,
+    reset: resetLoginUsername,
   } = useInput(isNotEmpty);
   const {
     value: loginPasswordValue,
@@ -61,13 +63,11 @@ const Login = () => {
     inputBlurHandler: signUpConfirmPasswordBlurHandler,
   } = useInput(isEqualToPassword);
 
-
   const [flag, setFlag] = useState(false);
-  const [signUpErrorMsg, setSignUpErrorMsg] = useState()
+  const [signUpErrorMsg, setSignUpErrorMsg] = useState();
   const [loginErrorMsg, setLoginErrorMsg] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
-
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -77,14 +77,21 @@ const Login = () => {
     if (!loginUsernameIsValid && !loginPasswordIsValid) {
       return;
     }
-    const res = await doFetch("http://localhost:5000/users/login", { username, password }, "POST");
+    const res = await doFetch(
+      "http://localhost:5000/users/login",
+      { username, password },
+      "POST"
+    );
     const result = await res.json();
 
     dispatch(userActions.saveUser(result));
-    
+
     dispatch(favoriteActions.newFavorites(result.favorites));
-    setItemToLocalStorage("favorites", result.favorites.map((favorite) => favorite));
-    
+    setItemToLocalStorage(
+      "favorites",
+      result.favorites.map((favorite) => favorite)
+    );
+
     if (res.status === 404 || res.status === 400) {
       return setLoginErrorMsg(await result.message);
     }
@@ -100,15 +107,23 @@ const Login = () => {
     const email = signUpEmailValue;
     const password = signUpPasswordValue;
 
-    if (!signUpUsernameIsValid && !signUpEmailIsValid && !signUpPasswordIsValid && !signUpConfirmPasswordIsValid) {
+    if (
+      !signUpUsernameIsValid &&
+      !signUpEmailIsValid &&
+      !signUpPasswordIsValid &&
+      !signUpConfirmPasswordIsValid
+    ) {
       return;
     }
 
-
-    const res = await doFetch("http://localhost:5000/users", { username, email, password }, "POST");
+    const res = await doFetch(
+      "http://localhost:5000/users",
+      { username, email, password },
+      "POST"
+    );
     const result = await res.json();
-   
-    if(res.status === 500){
+
+    if (res.status === 500) {
       return setSignUpErrorMsg(await result.message);
     }
 
@@ -116,20 +131,24 @@ const Login = () => {
       return;
     }
 
-    const ress = await doFetch("http://localhost:5000/users/login", {
-      username,
-      password,
-    }, "POST");
+    const ress = await doFetch(
+      "http://localhost:5000/users/login",
+      {
+        username,
+        password,
+      },
+      "POST"
+    );
 
-      const resultt = await ress.json();
+    const resultt = await ress.json();
 
-      dispatch(userActions.saveUser(resultt));
+    dispatch(userActions.saveUser(resultt));
 
-      if (ress.status === 404 || ress.status === 400) {
-        return setLoginErrorMsg(await resultt.message);
-      }
+    if (ress.status === 404 || ress.status === 400) {
+      return setLoginErrorMsg(await resultt.message);
+    }
 
-      if (res.status === 201) {
+    if (res.status === 201) {
       history.replace("/home");
     }
   };
@@ -155,15 +174,15 @@ const Login = () => {
 
   return (
     <div
-      className={flag ? classes["wrapper__area sign-up__Mode-active"] : classes["wrapper__area"]}
+      className={flag ? "wrapper__area sign-up__Mode-active" : "wrapper__area"}
       id="wrapper_Area"
     >
-      <div className={classes["forms__area"]}>
+      <div className="forms__area">
         {/* Login Form  */}
-        <form className={classes["login__form"]} id="loginForm">
-          <h1 className={classes["form__title"]}>Sign In!</h1>
-          <div className={classes["input__group"]}>
-            <label className={classes["field"]}>
+        <form className="login__form" id="loginForm">
+          <h1 className="form__title">Sign In!</h1>
+          <div className="input__group">
+            <label className="field">
               <input
                 value={loginUsernameValue}
                 onChange={loginUsernameChangeHandler}
@@ -176,16 +195,16 @@ const Login = () => {
                 required
               />
               {loginUsernameHasError ? (
-                <p className={classes["errorMsg"]}>Username can't be empty!</p>
+                <p className="errorMsg">Username can't be empty!</p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-user"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-user"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
+            <small className="input__error_message"></small>
           </div>
-          <div className={classes["input__group"]}>
-            <label className={classes["field"]}>
+          <div className="input__group">
+            <label className="field">
               <input
                 value={loginPasswordValue}
                 onChange={loginPasswordChangeHandler}
@@ -198,24 +217,25 @@ const Login = () => {
                 required
               />
               {loginPasswordHasError ? (
-                <p className={classes["errorMsg"]}>
+                <p className="errorMsg">
                   Password must contain at least 7 characters!
                 </p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-lock"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-lock"></i>
             </span>
-            <span className={classes["showHide__Icon"]}>
-              <i className={classes["bx bx-hide"]}></i>
+            <span className="showHide__Icon">
+              <i className="bx bx-hide"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
-            {loginErrorMsg ? <div className={classes['errorMsg']}>{ loginErrorMsg }</div> : null}
-
+            <small className="input__error_message"></small>
+            {loginErrorMsg ? (
+              <div className="errorMsg">{loginErrorMsg}</div>
+            ) : null}
           </div>
           <button
             onClick={(e) => onLogin(e)}
-            className={classes[["submit-button"]]}
+            className={["submit-button"]}
             id="loginSubmitBtn"
           >
             Sign in
@@ -223,10 +243,10 @@ const Login = () => {
         </form>
 
         {/* Sign Up Form  */}
-        <form className={classes["sign-up__form"]} id="signUpForm">
-          <h1 className={classes["form__title"]}>Sign Up!</h1>
-          <div className={classes["input__group"]}>
-            <label className={classes["field"]}>
+        <form className="sign-up__form" id="signUpForm">
+          <h1 className="form__title">Sign Up!</h1>
+          <div className="input__group">
+            <label className="field">
               <input
                 value={signUpUsernameValue}
                 onChange={signUpUsernameChangeHandler}
@@ -239,16 +259,16 @@ const Login = () => {
                 required
               />
               {signUpUsernameHasError ? (
-                <p className={classes["errorMsg"]}>Username can't be empty!</p>
+                <p className="errorMsg">Username can't be empty!</p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-user"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-user"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
+            <small className="input__error_message"></small>
           </div>
-          <div className={classes["input__group"]}>
-            <label className={classes["field"]}>
+          <div className="input__group">
+            <label className="field">
               <input
                 value={signUpEmailValue}
                 onChange={signUpEmailChangeHandler}
@@ -261,16 +281,16 @@ const Login = () => {
                 required
               />
               {signUpEmailHasError ? (
-                <p className={classes["errorMsg"]}>Please write real email!</p>
+                <p className="errorMsg">Please write real email!</p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-at"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-at"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
+            <small className="input__error_message"></small>
           </div>
-          <div className={classes["input__group"]}>
-            <label className={classes["field"]}>
+          <div className="input__group">
+            <label className="field">
               <input
                 value={signUpPasswordValue}
                 onChange={signUpPasswordChangeHandler}
@@ -283,21 +303,21 @@ const Login = () => {
                 required
               />
               {signUpPasswordHasError ? (
-                <p className={classes["errorMsg"]}>
+                <p className="errorMsg">
                   Password must contain at least 7 characters!
                 </p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-lock"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-lock"></i>
             </span>
-            <span className={classes["showHide__Icon"]}>
-              <i className={classes["bx bx-hide"]}></i>
+            <span className="showHide__Icon">
+              <i className="bx bx-hide"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
+            <small className="input__error_message"></small>
           </div>
-          <div className={classes["input__group confirm__group"]}>
-            <label className={classes["field"]}>
+          <div className="input__group confirm__group">
+            <label className="field">
               <input
                 value={signUpConfirmPasswordValue}
                 onChange={signUpConfirmPasswordChangeHandler}
@@ -310,23 +330,25 @@ const Login = () => {
                 required
               />
               {signUpConfirmPasswordHasError ? (
-                <p className={classes["errorMsg"]}>
+                <p className="errorMsg">
                   Please make sure your passwords match!
                 </p>
               ) : null}
             </label>
-            <span className={classes["input__icon"]}>
-              <i className={classes["bx bx-lock"]}></i>
+            <span className="input__icon">
+              <i className="bx bx-lock"></i>
             </span>
-            <span className={classes["showHide__Icon"]}>
-              <i className={classes["bx bx-hide"]}></i>
+            <span className="showHide__Icon">
+              <i className="bx bx-hide"></i>
             </span>
-            <small className={classes["input__error_message"]}></small>
-            {signUpErrorMsg ? <div className={classes['errorMsg']}>{ signUpErrorMsg }</div> : null}
+            <small className="input__error_message"></small>
+            {signUpErrorMsg ? (
+              <div className="errorMsg">{signUpErrorMsg}</div>
+            ) : null}
           </div>
           <button
             onClick={(e) => onSignUp(e)}
-            className={classes["submit-button"]}
+            className="submit-button"
             id="signUpSubmitBtn"
           >
             Sign Up
@@ -334,8 +356,8 @@ const Login = () => {
         </form>
       </div>
 
-      <div className={classes["aside__area"]} id="aside_Area">
-        <div className={classes["login__aside-info"]}>
+      <div className="aside__area" id="aside_Area">
+        <div className="login__aside-info">
           <h4>Hello</h4>
           <img src="https://d.top4top.io/p_1945xjz2y1.png" alt="Image" />
           <p>Enter your personal details and start journey with us</p>
@@ -343,7 +365,7 @@ const Login = () => {
             Sign Up
           </button>
         </div>
-        <div className={classes["sign-up__aside-info"]}>
+        <div className="sign-up__aside-info">
           <h4>Welcome</h4>
           <img src="https://e.top4top.io/p_1945sidbp2.png" alt="Image" />
           <p>To Keep connected with us please login with your personal info</p>
@@ -354,6 +376,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

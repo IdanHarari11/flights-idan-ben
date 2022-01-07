@@ -15,4 +15,4 @@ user:
 
 admin:
     - username: idan
-    - password: 123456789
+    - password: 123123123

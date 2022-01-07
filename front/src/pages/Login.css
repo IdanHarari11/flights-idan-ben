@@ -285,7 +285,7 @@ button.submit-button{
   text-transform: uppercase;
 }
 .sign-up__form button.submit-button{ /* Sign Up Submit Button */
-  margin-top: 25px;
+  margin-top: -10rem;
 }
 button.submit-button:hover{
   opacity: 0.8;
@@ -333,6 +333,7 @@ button.submit-button:active{
 /* When Sign Up Mode Is Active\ Sign Up Form */
 form.sign-up__form{
   opacity: 0;
+  height: 90%;
 }
 .wrapper__area.sign-up__Mode-active form.sign-up__form {
   margin-top: 0;
