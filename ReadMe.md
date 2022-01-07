@@ -7,3 +7,12 @@
 6. run- cd back
 7. run- npm i
 8. run- node server.js (-> Shuold return -"app listening on port 5000!")
+
+# Login
+user: 
+    - username: eyal 
+    - password: 123456789
+
+admin:
+    - username: idan
+    - password: 123456789
