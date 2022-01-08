@@ -16,7 +16,7 @@ const Login = () => {
   const isEqualToPassword = (value) =>
     value === signUpPasswordValue && value.length > 6;
 
-  //! Login inputs
+  //! Login inputsd
   const {
     value: loginUsernameValue,
     isValid: loginUsernameIsValid,
