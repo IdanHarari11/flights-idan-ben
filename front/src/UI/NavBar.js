@@ -4,19 +4,13 @@ import './NavBar.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../store/userSlice';
 import { getItemFromLocalStorage } from '../helpers/localStorageFunc';
-import { doFetch } from '../helpers/useFetch';
 
 const NavBar = () => {
 	const favorites = useSelector((state) => state.favorite);
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
-	let userToken = getItemFromLocalStorage("token");
 	const history = useHistory();
 	const favoritesIds = [];
-
-	useEffect(() => {
-		userToken = getItemFromLocalStorage("token");
-	}, [user])
 
 	const onLogout = () => {
 		favorites.forEach((favorite) => {
@@ -47,11 +41,12 @@ const NavBar = () => {
 								{ user.user.username && <li className="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<NavLink to='/' className="nav-link" onClick={onLogout}>Logout</NavLink>
 								</li>}
-								<li className="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+								{ !user.user.isAdmin && user.user.username && <li className="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<NavLink to="/favorites" className="nav-link dropdown-toggle">Favorites</NavLink>
-								</li>
+								</li>}
 								<li className=" pl-4 pl-md-0 ml-0 ml-md-4 text-light">
-									{user.user.username ? user.user.username : null}
+									{user.user.username ? user.user.username : null} 
+									{user.user.isAdmin && <b> -Admin</b>}
 								</li>
 							</ul>
 						</div>
