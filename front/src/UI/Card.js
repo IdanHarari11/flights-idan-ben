@@ -36,7 +36,10 @@ const Card = ({ mainpicture, title, description, flight }) => {
   const toggleFavorite = () => {
     if (!user.token) {
       history.replace("/login");
-      return alert("Please login first!");
+      setTimeout(() => {
+        return alert("Please Login First !");
+      }, 400);
+      return;
     }
     dispatch(favoriteActions.toggleFavorite({ flight, user }));
     setIsFavorite((prevState) => !prevState);
