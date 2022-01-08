@@ -85,7 +85,7 @@ const Login = () => {
     const result = await res.json();
 
     if (result.message) {
-      setLoginErrorMsg(await result.message);
+      return setLoginErrorMsg(await result.message);
     }
 
     dispatch(userActions.saveUser(result));
@@ -127,6 +127,10 @@ const Login = () => {
     );
     const result = await res.json();
 
+    if(result.message){
+      return setSignUpErrorMsg(await result.message);
+    }
+
     if (res.status === 500) {
       return setSignUpErrorMsg(await result.message);
     }
@@ -146,11 +150,15 @@ const Login = () => {
 
     const resultt = await ress.json();
 
-    dispatch(userActions.saveUser(resultt));
-
-    if (ress.status === 404 || ress.status === 400) {
-      return setLoginErrorMsg(await resultt.message);
+    if(resultt.message){
+      return setSignUpErrorMsg(await resultt.message);
     }
+    
+    if (ress.status === 404 || ress.status === 400) {
+      return setSignUpErrorMsg(await resultt.message);
+    }
+
+    dispatch(userActions.saveUser(resultt));
 
     if (res.status === 201) {
       history.replace("/home");
