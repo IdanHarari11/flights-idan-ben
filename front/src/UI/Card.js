@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { favoriteActions } from "../store/favoriteSlice";
-import BasicModal from '../UI/BasicModal';
+import BasicModal from "../UI/BasicModal";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getItemFromLocalStorage } from "../helpers/localStorageFunc";
@@ -19,26 +19,26 @@ const Card = ({ mainpicture, title, description, flight }) => {
 
   const isAdmin = user.user.isAdmin;
 
-  const isE = getItemFromLocalStorage("favorites")
+  const isE = getItemFromLocalStorage("favorites");
   const isExist = isE ? isE.find((favorite) => favorite === flight._id) : false;
   const [isFavorite, setIsFavorite] = useState(isExist ? true : false);
-  const [editTitle, setEditTitle] = useState(title)
-  const [editDescription, setEditDescription] = useState(description)
-  const [isEditing, setIsEditing] = useState(false)
+  const [editTitle, setEditTitle] = useState(title);
+  const [editDescription, setEditDescription] = useState(description);
+  const [isEditing, setIsEditing] = useState(false);
   const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
-    if(!user.token){
-      setIsFavorite(false)
+    if (!user.token) {
+      setIsFavorite(false);
     }
-  }, [user])
+  }, [user]);
 
   const toggleFavorite = () => {
-    if(!user.token){
-      history.replace("/login")
-      return alert("Please login first!")
+    if (!user.token) {
+      history.replace("/login");
+      return alert("Please login first!");
     }
-    dispatch(favoriteActions.toggleFavorite({flight, user}));
+    dispatch(favoriteActions.toggleFavorite({ flight, user }));
     setIsFavorite((prevState) => !prevState);
   };
 
@@ -47,23 +47,27 @@ const Card = ({ mainpicture, title, description, flight }) => {
       history.replace("/login");
       return alert("Please login first!");
     }
-  }
+  };
   const onChangeTitle = (e) => {
     setIsChange(true);
     setEditTitle(e.target.value);
-  }
+  };
   const onChangeDescription = (e) => {
     setIsChange(true);
     setEditDescription(e.target.value);
-  }
+  };
 
   const saveInputsChanges = async () => {
     setIsEditing(false);
-    if (isChange){
-      doFetch(`http://localhost:5000/flights/${flight._id}`, { name: editTitle, description: editDescription }, "PATCH");
-        window.location.reload();
+    if (isChange) {
+      doFetch(
+        `http://localhost:5000/flights/${flight._id}`,
+        { name: editTitle, description: editDescription },
+        "PATCH"
+      );
+      window.location.reload();
     }
-  }
+  };
 
   return (
     <div className={classes.container}>
@@ -78,19 +82,40 @@ const Card = ({ mainpicture, title, description, flight }) => {
           {!isAdmin && isFavorite && (
             <FavoriteIcon className={classes.Icon} onClick={toggleFavorite} />
           )}
-          {isAdmin && !isEditing && <EditIcon className={classes.Icon} onClick={() => setIsEditing(true)}/>}
-          {isAdmin && isEditing && <CheckIcon className={classes.Icon} onClick={saveInputsChanges}/>}
+          {isAdmin && !isEditing && (
+            <EditIcon
+              className={classes.Icon}
+              onClick={() => setIsEditing(true)}
+            />
+          )}
+          {isAdmin && isEditing && (
+            <CheckIcon className={classes.Icon} onClick={saveInputsChanges} />
+          )}
         </div>
-        {<div className={classes.icon2} onClick={onOpenModal}>
-          <BasicModal flight={flight} isAdmin={isAdmin} isEditing={isEditing} setIsEditing={setIsEditing} />
-        </div>}
+        {
+          <div className={classes.icon2} onClick={onOpenModal}>
+            <BasicModal
+              flight={flight}
+              isAdmin={isAdmin}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+            />
+          </div>
+        }
         <div className={classes.image}>
           <img alt="Hotel" src={mainpicture} />
         </div>
         <b className={classes.title}>{title}</b>
+        <b className={classes.priceNight}>{flight.price}$ per night</b>
         <div className={classes.content}>
           {!isEditing && <h3>{title}</h3>}
-          {isAdmin && isEditing && <input value={editTitle} onChange={(e) => onChangeTitle(e)} style={{ padding: "1rem" }} />}
+          {isAdmin && isEditing && (
+            <input
+              value={editTitle}
+              onChange={(e) => onChangeTitle(e)}
+              style={{ padding: "1rem" }}
+            />
+          )}
           {!isEditing && <p>{description}</p>}
           {isAdmin && isEditing && (
             <input

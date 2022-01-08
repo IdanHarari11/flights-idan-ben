@@ -6,15 +6,11 @@
 }
 body {
   display : flex;
-  /* align-items : center; */
-  /* justify-content : center;   */
-  /* min-height : 800px; */
   overflow-x: hidden;
 }
 
 .container {
   position : relative;
-  /* width : 1100px; */
   display : flex;
   align-items : center;
   justify-content : center;
@@ -30,7 +26,6 @@ body {
   height : 215px;  
   background-color : #fff;
   margin : 30px 10px;
-  /* padding : 20px 15px; */
   display : flex;
   flex-direction : column;
   box-shadow : 0 5px 20px rgba(0,0,0,0.5);
@@ -50,7 +45,6 @@ body {
   height : fit-content;
   top : -20%;
   left: 8px;
-  /* box-shadow : 0 5px 20px rgba(0,0,0,0.2); */
   z-index : 1;
 }
 
@@ -74,10 +68,8 @@ body {
   opacity : 0;
   transition : 0.3s ease-in-out;
   height: 215px;
-  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
-  /* max-width: 100%; */
   padding-top: 2.4rem;
   
 }
@@ -91,10 +83,18 @@ body {
 .card:hover .title{
   display: none;
 }
+.card:hover .priceNight{
+  display: none;
+}
 
 .title{
-  margin-top: 11rem;
+  margin-top: 10rem;
   text-align: center;
+}
+
+.priceNight{
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 .Icon{
