@@ -50,7 +50,7 @@ const NavBar = () => {
 								<li className="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
 									<NavLink to="/favorites" className="nav-link dropdown-toggle">Favorites</NavLink>
 								</li>
-								<li className=" pl-4 pl-md-0 ml-0 ml-md-4">
+								<li className=" pl-4 pl-md-0 ml-0 ml-md-4 text-light">
 									{user.user.username ? user.user.username : null}
 								</li>
 							</ul>
