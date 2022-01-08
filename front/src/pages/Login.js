@@ -84,6 +84,10 @@ const Login = () => {
     );
     const result = await res.json();
 
+    if (result.message) {
+      setLoginErrorMsg(result.message);
+    }
+
     dispatch(userActions.saveUser(result));
 
     dispatch(favoriteActions.newFavorites(result.favorites));
@@ -198,10 +202,6 @@ const Login = () => {
                 <p className="errorMsg">Username can't be empty!</p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-user"></i>
-            </span>
-            <small className="input__error_message"></small>
           </div>
           <div className="input__group">
             <label className="field">
@@ -222,13 +222,6 @@ const Login = () => {
                 </p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-lock"></i>
-            </span>
-            <span className="showHide__Icon">
-              <i className="bx bx-hide"></i>
-            </span>
-            <small className="input__error_message"></small>
             {loginErrorMsg ? (
               <div className="errorMsg">{loginErrorMsg}</div>
             ) : null}
@@ -262,10 +255,6 @@ const Login = () => {
                 <p className="errorMsg">Username can't be empty!</p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-user"></i>
-            </span>
-            <small className="input__error_message"></small>
           </div>
           <div className="input__group">
             <label className="field">
@@ -284,10 +273,6 @@ const Login = () => {
                 <p className="errorMsg">Please write real email!</p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-at"></i>
-            </span>
-            <small className="input__error_message"></small>
           </div>
           <div className="input__group">
             <label className="field">
@@ -308,13 +293,6 @@ const Login = () => {
                 </p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-lock"></i>
-            </span>
-            <span className="showHide__Icon">
-              <i className="bx bx-hide"></i>
-            </span>
-            <small className="input__error_message"></small>
           </div>
           <div className="input__group confirm__group">
             <label className="field">
@@ -335,13 +313,6 @@ const Login = () => {
                 </p>
               ) : null}
             </label>
-            <span className="input__icon">
-              <i className="bx bx-lock"></i>
-            </span>
-            <span className="showHide__Icon">
-              <i className="bx bx-hide"></i>
-            </span>
-            <small className="input__error_message"></small>
             {signUpErrorMsg ? (
               <div className="errorMsg">{signUpErrorMsg}</div>
             ) : null}
