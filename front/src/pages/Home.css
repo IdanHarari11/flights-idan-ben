@@ -1,16 +1,45 @@
 .cards{ 
     justify-content: center !important;
-    margin-top: 37rem;
+    margin-top: 600px;
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 2560px) {
     .cards{
-        margin-top: 50rem;
+        margin-top: -5rem;
+        margin-right: 25rem;
+    }
+}    
+@media screen and (max-width: 1600px) {
+    .cards{
+        margin-top: 36rem;
+    }
+}    
+@media screen and (max-width: 1440px) {
+    .cards{
+        margin-top: 55rem;
+        margin-left: 15rem;
+    }
+}    
+@media screen and (max-width: 1024px) {
+    .cards{
+        margin-top: 150rem;
+        margin-left: 33rem;
+    }
+}    
+@media screen and (max-width: 768px) {
+    .cards{
+        margin-top: 150rem;
+        margin-left: 55rem;
     }
 }    
 @media screen and (max-width: 360px) {
     .cards{
         margin-top: 60rem;
     }
-    
+}
+@media screen and (max-width: 360px) {
+    .cards{
+        margin-top: 150rem;
+        margin-left: 1rem;
+    }
 }

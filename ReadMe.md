@@ -14,5 +14,5 @@ user:
     - password: 123456789
 
 admin:
-    - username: idan
+    - username: harari
     - password: 123123123
