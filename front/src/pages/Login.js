@@ -85,7 +85,7 @@ const Login = () => {
     const result = await res.json();
 
     if (result.message) {
-      setLoginErrorMsg(result.message);
+      setLoginErrorMsg(await result.message);
     }
 
     dispatch(userActions.saveUser(result));
